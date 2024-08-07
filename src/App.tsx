@@ -1,4 +1,3 @@
-import { Button } from "flowbite-react";
 import "./App.css";
 import { useEffect, useState } from "react";
 import HeaderComponent from "./component/HeaderComponent";
@@ -34,23 +33,26 @@ function App() {
     );
   }, []);
 
-  useEffect(() => {});
   return (
     <div className="h-screen flex flex-col justify-between text-center">
       <HeaderComponent />
       <main className="container mx-auto">
-        <h1 className="py-5 text-4xl font-bold">ALL Product</h1>
+        <h1 className="py-5 text-4xl font-bold text-red-600">ALL Product</h1>
         <hr />
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-flow-row gap-6 mx-auto max-w-screen-xl my-5">
-          {product.map((product) => (
-            <CardComponent
-              key={product.id}
-              title={product.title}
-              image={product.image}
-              price={product.price}
-            />
-          ))}
-        </div>
+        {status === "loading" && <p>Loading...</p>}
+        {status === "error" && <p>Error loading products.</p>}
+        {status === "success" && (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow-row gap-6 mx-auto max-w-screen-xl my-5">
+            {product.map((product) => (
+              <CardComponent
+                key={product.id}
+                title={product.title}
+                image={product.image}
+                price={product.price}
+              />
+            ))}
+          </div>
+        )}
       </main>
       <FooterComponent />
     </div>
